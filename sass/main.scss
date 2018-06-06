@@ -1,6 +1,18 @@
 // colors
-$bg-color: #fff;
-$logo-color: #000;
+$bg-color: linear-gradient(to bottom, #691a3f 0%, #500b54 40%, #7d2535 100%);
+$logo-color: #ead7ca;
+$circle-color: #d74422;
+
+// sizes
+$logo-size: 41vmin;
+$circle-size: 16vmin;
+$circle-border-size: 4vmin;
+$rectangle-deg: 0deg;
+$small-circle-deg: 0deg;
+
+// fonts
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:400,700");
+$ubuntu-font: 'Ubuntu', sans-serif;
 
 // mixins
 @mixin center {
@@ -17,19 +29,6 @@ $logo-color: #000;
     position: $position;
 }
 
-@mixin breakpoint($point) {
-    @if $point==tablet {
-        @media (max-width: 1024px) and (min-width: 768px) {
-            @content ;
-        }
-    }
-    @else if $point==mobile {
-        @media (max-width: 480px) and (min-width: 320px) {
-            @content ;
-        }
-    }
-}
-
 html, body{
   width: 100%;
   height: 100%;
@@ -42,4 +41,80 @@ body{
 
 .logo{
   @include center;
+  top: -30vmin;
+  width: $logo-size;
+  height: $logo-size;
+  background: $circle-color;
+  border-radius: 50%;
+
+  .circle{
+    @include center;
+    width: $circle-size;
+    height: $circle-size;
+    border-radius: 50%;
+    background: $circle-color;
+    border: $circle-border-size solid $logo-color;
+  }
+
+  .rectangle-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-28deg);
+
+    .rectangle{
+      position: absolute;
+      width: 1.5vmin;
+      height: 6vmin;
+      top: 7.5vmin;
+      left: 19.3vmin;
+      background: $circle-color;
+      transform-origin: 1.08vmin 12.8vmin;
+    }
+
+    @for $i from 1 through 3 {
+      .rectangle-#{$i} {
+          transform: rotate($rectangle-deg);
+      }
+      $rectangle-deg: $rectangle-deg+120deg;
+    }
+  }
+
+  .small-circle-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -33.8vmin;
+    left: 20.17vmin;
+    transform: rotate(10deg);
+
+    .small-circle{
+      position: absolute;
+      width: 5.45vmin;
+      height: 5.45vmin;
+      background: $logo-color;
+      border-radius: 50%;
+      transform-origin: -0.8vmin 16.8vmin;
+      border: 1vmin solid $circle-color;
+    }
+
+    @for $i from 1 through 3 {
+      .small-circle-#{$i} {
+          transform: rotate($small-circle-deg);
+      }
+      $small-circle-deg: $small-circle-deg+120deg;
+    }
+  }
+}
+
+.title{
+  margin-top: 55vh;
+  text-align: center;
+  font-family: $ubuntu-font;
+  font-size: 24vmin;
+  color: $logo-color;
+
+  span{
+    font-size: 5vmin;
+  }
 }
